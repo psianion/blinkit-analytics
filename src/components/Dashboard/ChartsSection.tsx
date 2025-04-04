@@ -1,5 +1,4 @@
 import SalesChart from './SalesChart';
-import CityStats from './PieChart';
 import CitiesChart from './CitiesChart';
 import QuantityChart from './QuantityChart';
 
