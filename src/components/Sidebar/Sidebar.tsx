@@ -1,10 +1,14 @@
 import {
   Calendar,
+  ChevronDown,
   ChevronsUpDown,
+  CircleHelp,
   Home,
+  Images,
   Inbox,
   Search,
   Settings,
+  Tv,
   UsersRound
 } from 'lucide-react';
 import {
@@ -16,38 +20,18 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
   SidebarProvider,
   SidebarTrigger
 } from '@/components/ui/sidebar';
 import React, { useState } from 'react';
-
-const items = [
-  {
-    title: 'Home',
-    url: '#',
-    icon: Home
-  },
-  {
-    title: 'Inbox',
-    url: '#',
-    icon: Inbox
-  },
-  {
-    title: 'Calendar',
-    url: '#',
-    icon: Calendar
-  },
-  {
-    title: 'Search',
-    url: '#',
-    icon: Search
-  },
-  {
-    title: 'Settings',
-    url: '#',
-    icon: Settings
-  }
-];
+import SidebarItem, { SidebarGroupItem } from './SidebarItem';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger
+} from '../ui/collapsible';
 
 const companyImages = [
   '/Sidebar/perfora.webp',
@@ -133,19 +117,62 @@ const Sidebar = () => {
                     className='ml-2 cursor-pointer'
                   />
                 </div>
-                <div className='w-full h-full bg-slate-200'>s</div>
-                {/* <SidebarMenu>
-                {items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <a href={item.url}>
-                        <item.icon />
-                        <span>{item.title}</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu> */}
+                <div className='w-full h-full bg-[#F8F8F8] flex flex-col items-center justify-between p-4'>
+                  <div className='flex flex-col items-center gap-1'>
+                    <SidebarItem
+                      text='Overview'
+                      icon={
+                        <Home size={20} color='#7E8986' strokeWidth={1.3} />
+                      }
+                    />
+                    <Collapsible defaultOpen className='group/collapsible'>
+                      <SidebarGroup>
+                        <SidebarGroupLabel asChild>
+                          <CollapsibleTrigger className='flex items-center justify-between w-[205px] h-[36px] p-2 gap-2 rounded-sm hover:bg-zinc-200 transition-all duration-300 cursor-pointer'>
+                            <div className='flex items-center gap-2'>
+                              <Tv size={20} color='#7E8986' strokeWidth={1.3} />
+                              <p className='text-[14px] font-medium leading-5 text-[#031B15]'>
+                                Channels
+                              </p>
+                            </div>
+                            <ChevronDown className='ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180' />
+                          </CollapsibleTrigger>
+                        </SidebarGroupLabel>
+                        <CollapsibleContent>
+                          <SidebarGroupContent className='flex flex-col items-start gap-1 mt-1'>
+                            <SidebarGroupItem text='Meta Ads' />
+                            <SidebarGroupItem text='Google Ads' />
+                            <SidebarGroupItem text='Quick Commerce' isActive />
+                          </SidebarGroupContent>
+                        </CollapsibleContent>
+                      </SidebarGroup>
+                    </Collapsible>
+                    <SidebarItem
+                      text='Creatives'
+                      icon={
+                        <Images size={20} color='#7E8986' strokeWidth={1.3} />
+                      }
+                    />
+                  </div>
+                  <div className='flex flex-col items-center gap-1'>
+                    <SidebarItem
+                      text='Help'
+                      icon={
+                        <CircleHelp
+                          size={20}
+                          color='#7E8986'
+                          strokeWidth={1.3}
+                        />
+                      }
+                    />
+                    <SidebarItem
+                      text='Settings'
+                      icon={
+                        <Settings size={20} color='#7E8986' strokeWidth={1.3} />
+                      }
+                    />
+                  </div>
+                </div>
               </SidebarContent>
             </ShadSidebar>
           </SidebarProvider>

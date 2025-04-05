@@ -166,7 +166,7 @@ const QuantityChart = () => {
         <ResponsiveContainer width='100%' height='100%'>
           <ComposedChart
             data={data}
-            margin={{ top: -10, right: 0, left: -40, bottom: 0 }}
+            margin={{ top: -10, right: 0, left: -20, bottom: 0 }}
           >
             <defs>
               <linearGradient id='greenGradient' x1='0' y1='0' x2='0' y2='1'>
@@ -188,7 +188,8 @@ const QuantityChart = () => {
             <YAxis
               tickLine={false}
               axisLine={false}
-              ticks={[3, 6, 7, 9]}
+              ticks={[(totalSales * 100000) / 60, (totalSales * 100000) / 30]}
+              tickFormatter={(value) => `${(value / 1000).toFixed(1)}K`}
               tickCount={4}
               tick={{
                 fontFamily: 'Mulish',

@@ -127,7 +127,7 @@
         "x": 0,
         "w": 12
       },
-      "query": "[{\"measures\":[\"blinkit_insights_city.sales_mrp_sum\"],\"dimensions\":[\"blinkit_insights_city.name\"],\"timeDimensions\":[{\"dimension\":\"blinkit_insights_city.created_at\",\"dateRange\":\"last month\",\"granularity\":\"day\"}],\"order\":{\"blinkit_insights_city.sales_mrp_sum\":\"desc\"},\"limit\":100},{\"measures\":[\"blinkit_insights_city.sales_mrp_sum\"],\"dimensions\":[\"blinkit_insights_city.name\"],\"timeDimensions\":[{\"dimension\":\"blinkit_insights_city.created_at\",\"dateRange\":\"2025-02-01T00:00:00.000, 2025-02-28T23:59:59.999\",\"granularity\":\"day\"}],\"order\":{\"blinkit_insights_city.sales_mrp_sum\":\"desc\"},\"limit\":100}]",
+      "query": "[{\"measures\":[\"blinkit_insights_city.sales_mrp_sum\"],\"dimensions\":[\"blinkit_insights_city.name\"],\"timeDimensions\":[{\"dimension\":\"blinkit_insights_city.created_at\",\"dateRange\":\"last month\",\"granularity\":\"day\"}],\"order\":{\"blinkit_insights_city.sales_mrp_sum\":\"desc\"},\"limit\":4},{\"measures\":[\"blinkit_insights_city.sales_mrp_sum\"],\"dimensions\":[\"blinkit_insights_city.name\"],\"timeDimensions\":[{\"dimension\":\"blinkit_insights_city.created_at\",\"dateRange\":\"2025-02-01T00:00:00.000, 2025-02-28T23:59:59.999\",\"granularity\":\"day\"}],\"order\":{\"blinkit_insights_city.sales_mrp_sum\":\"desc\"},\"limit\":4}]",
       "datatableProperties": {
         "columnOrder": [
           "blinkit_insights_city.id",
