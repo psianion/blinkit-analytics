@@ -13,6 +13,7 @@ import React, { useEffect, useState } from 'react';
 import { sendQuery } from '@/utils/FetchUtils';
 import initConfig from '@/assets/init.json';
 import { formatNumber } from '@/lib/utils';
+import Loader from '../Loader';
 
 type TableData = {
   id: string;
@@ -79,7 +80,7 @@ export default function SKUTable() {
               100 -
               Number(item['blinkit_scraping_stream.on_shelf_availability'])
             ).toFixed(2)}%`
-          : 'N/A',
+          : '-',
         totalInventory: item['blinkit_insights_sku.inv_qty'],
         averageRank: item['blinkit_scraping_stream.rank_avg']
           ? Number(item['blinkit_scraping_stream.rank_avg'])
@@ -130,10 +131,14 @@ export default function SKUTable() {
     0
   );
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
-    <div>
+    <div className='w-full bg-[#F9F9F9] rounded-[8px] shadow-[0px_1px_0px_0px_#0000001F]'>
       <div className='flex items-center justify-between mb-4'>
-        <div>
+        <div className='flex flex-col'>
           <h2 className='text-[20px] leading-6 font-bold text-[#031B15]'>
             SKU level data
           </h2>
@@ -141,14 +146,11 @@ export default function SKUTable() {
             Analytics for all your SKUs
           </p>
         </div>
-        <Button
-          variant='outline'
-          className='flex w-[109px] h-[40px] items-center gap-2 bg-[#027056] text-white rounded-[10px] text-sm font-medium'
-        >
-          Filters(1) <ChevronDown size={25} />
+        <Button className='flex w-[109px] h-[40px] items-center justify-center gap-2 bg-[#027056] hover:bg-[#027056] shadow-[0px_1px_4px_0px_#0000000A] text-white rounded-[10px] text-sm font-medium'>
+          Filters(1) <ChevronDown size={20} />
         </Button>
       </div>
-      <div className='bg-white rounded-lg border border-gray-200  w-full'>
+      <div className='bg-white rounded-[8px] border border-gray-200  w-full'>
         <div className='overflow-x-auto'>
           <Table>
             <TableHeader>
@@ -158,20 +160,25 @@ export default function SKUTable() {
                   className='w-1/6 border-r border-[#F1F1F1]'
                 >
                   <div className='flex items-center justify-center gap-1'>
-                    {' '}
-                    <ChartLine size={20} className='text-[#031B15]' />
-                    <p>SKU Name</p>
+                    <ChartLine
+                      size={20}
+                      className='text-[#031B15]'
+                      strokeWidth={1.5}
+                    />
+                    <p className='text-[15px] font-semibold leading-4'>
+                      SKU Name
+                    </p>
                   </div>
                 </TableHead>
                 <TableHead
                   colSpan={3}
-                  className='text-center text-[15px] font-bold border-r border-[#F1F1F1]'
+                  className='text-center text-[15px] font-bold text-[#013025] border-r border-[#F1F1F1]'
                 >
                   Availability
                 </TableHead>
                 <TableHead
                   colSpan={4}
-                  className='text-center text-[15px] font-bold'
+                  className='text-center text-[15px] font-bold text-[#013025]'
                 >
                   Visibility
                 </TableHead>
@@ -179,48 +186,50 @@ export default function SKUTable() {
               <TableRow>
                 <TableHead>
                   <div className='flex justify-center items-center gap-1'>
-                    <p className='text-[15px] font-semibold leading-4'>Sales</p>
-                    <ChevronDown size={14} className='text-[#031B15]' />
+                    <p className='text-[15px] font-semibold leading-4 text-[#013025]'>
+                      Sales
+                    </p>
+                    <ChevronDown size={12} className='text-[#031B15]' />
                   </div>
                 </TableHead>
                 <TableHead className='text-center'>
                   <div className='flex justify-center items-center gap-1'>
-                    <p className='text-[15px] font-semibold leading-4'>
+                    <p className='text-[15px] font-semibold leading-4 text-[#013025]'>
                       Out of Stock
                     </p>
-                    <ChevronDown size={14} className='text-[#031B15]' />
+                    <ChevronDown size={12} className='text-[#031B15]' />
                   </div>
                 </TableHead>
                 <TableHead className='border-r border-[#F1F1F1]'>
                   <div className='flex justify-center items-center gap-1'>
-                    <p className='text-[15px] font-semibold leading-4'>
+                    <p className='text-[15px] font-semibold leading-4 text-[#013025]'>
                       Total Inventory
                     </p>
-                    <ChevronDown size={14} className='text-[#031B15]' />
+                    <ChevronDown size={12} className='text-[#031B15]' />
                   </div>
                 </TableHead>
                 <TableHead>
                   <div className='flex justify-center items-center gap-1'>
-                    <p className='text-[15px] font-semibold leading-4'>
+                    <p className='text-[15px] font-semibold leading-4 text-[#013025]'>
                       Avg. Rank
                     </p>
-                    <ChevronDown size={14} className='text-[#031B15]' />
+                    <ChevronDown size={12} className='text-[#031B15]' />
                   </div>
                 </TableHead>
                 <TableHead>
                   <div className='flex justify-center items-center gap-1'>
-                    <p className='text-[15px] font-semibold leading-4'>
+                    <p className='text-[15px] font-semibold leading-4 text-[#013025]'>
                       Est. Traffic
                     </p>
-                    <ChevronDown size={14} className='text-[#031B15]' />
+                    <ChevronDown size={12} className='text-[#031B15]' />
                   </div>
                 </TableHead>
                 <TableHead>
                   <div className='flex justify-center items-center gap-1'>
-                    <p className='text-[15px] font-semibold leading-4'>
+                    <p className='text-[15px] font-semibold leading-4 text-[#013025]'>
                       Est. Impressions
                     </p>
-                    <ChevronDown size={14} className='text-[#031B15]' />
+                    <ChevronDown size={12} className='text-[#031B15]' />
                   </div>
                 </TableHead>
               </TableRow>
@@ -229,7 +238,7 @@ export default function SKUTable() {
             <TableBody>
               {data.map((el, index) => (
                 <React.Fragment key={index}>
-                  <TableRow>
+                  <TableRow className='text-[14px] text-[#4E5E5A] font-medium'>
                     <TableCell className=' border-r border-[#F1F1F1]'>
                       <div className='flex items-center gap-2'>
                         <Checkbox defaultChecked />
@@ -256,7 +265,7 @@ export default function SKUTable() {
                 </React.Fragment>
               ))}
 
-              <TableRow className='font-semibold bg-gray-100'>
+              <TableRow className='font-bold text-[15px] text-[#0A090B]'>
                 <TableCell>Total</TableCell>
                 <TableCell className='text-center'>{totalSales}</TableCell>
                 <TableCell className='text-center'>

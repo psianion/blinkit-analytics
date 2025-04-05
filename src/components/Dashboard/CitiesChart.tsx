@@ -6,6 +6,7 @@ import { PieChart, Pie, Cell } from 'recharts';
 import { useEffect, useState } from 'react';
 import { sendQuery } from '@/utils/FetchUtils';
 import initConfig from '@/assets/init.json';
+import Loader from '../Loader';
 
 type City = {
   name: string;
@@ -23,11 +24,13 @@ const Colors = ['#6C4FED', '#EA6153', '#F7C245', '#D9D9D9'];
 
 const CitiesChart = () => {
   const [cities, setCities] = useState<City[]>([]);
+  const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState<string>('');
   const [totalChange, setTotalChange] = useState<number>(0);
 
   const fetchData = async () => {
     try {
+      setLoading(true);
       const cardConfig = initConfig.cards.find(
         (card: any) => card.id === 'blinkit-insights-city-sales_mrp_sum'
       );
@@ -89,6 +92,8 @@ const CitiesChart = () => {
       setCities(formattedData);
     } catch (error) {
       console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -96,8 +101,12 @@ const CitiesChart = () => {
     fetchData();
   }, []);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
-    <div className='flex-1 h-[292px] bg-white border border-solid border-[#EBEBEB] rounded-[12px]'>
+    <div className='flex-1 h-[292px] bg-white border border-solid border-[#EBEBEB] rounded-[12px] shadow-[0px_1px_0px_0px_#0000001F]'>
       <div className='w-full px-3 flex items-center justify-between h-[44px]'>
         <p className='font-semibold text-[14px] text-[#515153]'>Top Cities</p>
         <CircleHelp size={16} />

@@ -23,7 +23,7 @@ const Dashboard = () => {
         >
           <ChartsSection />
         </div>
-        <div className='flex flex-col gap-5 p-4 bg-[#FAFAFA]'>
+        <div className='flex flex-col gap-12 p-4 bg-[#FAFAFA]'>
           <SKUTable />
           <CityTable />
         </div>

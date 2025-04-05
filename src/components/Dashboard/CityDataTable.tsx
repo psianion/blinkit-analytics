@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { ChartLine, ChevronDown } from 'lucide-react';
 import initConfig from '@/assets/init.json';
 import { sendQuery } from '@/utils/FetchUtils';
+import Loader from '../Loader';
 
 interface TableData {
   id: string;
@@ -125,26 +126,28 @@ const CityTable = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
-    <div className='mt-[40px]'>
+    <div className='w-full bg-[#F9F9F9] rounded-[8px] shadow-[0px_1px_0px_0px_#0000001F]'>
       <div className='flex items-center justify-between mb-4'>
-        <div>
+        <div className='flex flex-col'>
           <h2 className='text-[20px] leading-6 font-bold text-[#031B15]'>
             City level data
           </h2>
           <p className='text-sm font-normal leading-4.5 text-[#4F4D55]'>
-            Analytics for all cities
+            Analytics for all your Cities
           </p>
         </div>
-        <Button
-          variant='outline'
-          className='flex w-[109px] h-[40px] items-center gap-2 bg-[#027056] text-white rounded-[10px] text-sm font-medium'
-        >
-          Filters(1) <ChevronDown size={25} />
+        <Button className='flex w-[109px] h-[40px] items-center justify-center gap-2 bg-[#027056] hover:bg-[#027056] shadow-[0px_1px_4px_0px_#0000000A] text-white rounded-[10px] text-sm font-medium'>
+          Filters(1) <ChevronDown size={20} />
         </Button>
       </div>
 
-      <div className='bg-white rounded-lg border border-gray-200 w-full'>
+      <div className='bg-white rounded-[8px] border border-gray-200 w-full'>
         <div className='overflow-x-auto'>
           <Table>
             <TableHeader>
@@ -154,13 +157,19 @@ const CityTable = () => {
                   className='w-1/6 border-r border-[#F1F1F1]'
                 >
                   <div className='flex items-center justify-center gap-1'>
-                    <ChartLine size={20} className='text-[#031B15]' />
-                    <p>City Name</p>
+                    <ChartLine
+                      size={20}
+                      strokeWidth={1.5}
+                      className='text-[#031B15]'
+                    />
+                    <p className='text-[15px] font-semibold leading-4'>
+                      City Name
+                    </p>
                   </div>
                 </TableHead>
                 <TableHead
                   colSpan={3}
-                  className='text-center text-[15px] font-bold'
+                  className='text-center text-[15px] font-bold text-[#013025]'
                 >
                   Sales Metrics
                 </TableHead>
@@ -169,24 +178,26 @@ const CityTable = () => {
               <TableRow>
                 <TableHead>
                   <div className='flex justify-center items-center gap-1'>
-                    <p className='text-[15px] font-semibold leading-4'>Sales</p>
-                    <ChevronDown size={14} className='text-[#031B15]' />
+                    <p className='text-[15px] font-semibold leading-4 text-[#013025]'>
+                      Sales
+                    </p>
+                    <ChevronDown size={12} className='text-[#031B15]' />
                   </div>
                 </TableHead>
                 <TableHead>
                   <div className='flex justify-center items-center gap-1'>
-                    <p className='text-[15px] font-semibold leading-4'>
+                    <p className='text-[15px] font-semibold leading-4 text-[#013025]'>
                       Percentage
                     </p>
-                    <ChevronDown size={14} className='text-[#031B15]' />
+                    <ChevronDown size={12} className='text-[#031B15]' />
                   </div>
                 </TableHead>
                 <TableHead>
                   <div className='flex justify-center items-center gap-1'>
-                    <p className='text-[15px] font-semibold leading-4'>
+                    <p className='text-[15px] font-semibold leading-4 text-[#013025]'>
                       Change
                     </p>
-                    <ChevronDown size={14} className='text-[#031B15]' />
+                    <ChevronDown size={12} className='text-[#031B15]' />
                   </div>
                 </TableHead>
               </TableRow>
@@ -195,7 +206,7 @@ const CityTable = () => {
             <TableBody>
               {data.map((city, index) => (
                 <React.Fragment key={index}>
-                  <TableRow>
+                  <TableRow className='text-[14px] text-[#4E5E5A] font-medium'>
                     <TableCell className='border-r border-[#F1F1F1]'>
                       <div className='flex items-center gap-2'>
                         <Checkbox defaultChecked />
@@ -211,7 +222,7 @@ const CityTable = () => {
                 </React.Fragment>
               ))}
 
-              <TableRow className='font-semibold bg-gray-100'>
+              <TableRow className='font-bold text-[15px] text-[#0A090B]'>
                 <TableCell>Total</TableCell>
                 <TableCell className='text-center'>
                   {totals.totalSales}

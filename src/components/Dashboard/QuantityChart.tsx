@@ -14,6 +14,7 @@ import { curveCardinal } from 'd3-shape';
 import { useEffect, useState } from 'react';
 import initConfig from '@/assets/init.json';
 import { sendQuery } from '@/utils/FetchUtils';
+import Loader from '../Loader';
 
 type SalesData = {
   'blinkit_insights_sku.created_at.day': string;
@@ -21,6 +22,7 @@ type SalesData = {
   'blinkit_insights_sku.qty_sold': string;
   'time.day': string;
 };
+
 type ChartData = {
   value: number;
   lastValue: number;
@@ -133,6 +135,8 @@ const QuantityChart = () => {
       setChange(Number((((total - lastTotal) / lastTotal) * 100).toFixed(1)));
     } catch (error) {
       console.error('Error fetching sales data:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -140,8 +144,12 @@ const QuantityChart = () => {
     fetchSalesData();
   }, []);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
-    <div className='flex-1 h-[292px] bg-white border border-solid border-[#EBEBEB] rounded-[12px]'>
+    <div className='flex-1 h-[292px] bg-white border border-solid border-[#EBEBEB] rounded-[12px] shadow-[0px_1px_0px_0px_#0000001F]'>
       <div className='w-full px-3 flex items-center justify-between h-[44px]'>
         <p className='font-semibold text-[14px] text-[#515153]'>
           Total Quantity Sold
